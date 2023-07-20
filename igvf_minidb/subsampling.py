@@ -1,66 +1,90 @@
-""" subsample strategy definition file format (JSON)
-{
-    profile_name: {
-        # any required accessions or uuid's
-        required: {
-            # special key "all" to include all objects under a profile (e.g. gene)
-            # if "all" then do not get metadata from server and don't do DFS
-            all: boolean,
-            accession: [
-            ],
-            uuid: [
-            ]
-        }
-    }    
-}
-"""
-
-import json
-import os
 import logging
+import math
+import random
+import requests
 
 from igvf_minidb.connection import get
-from igvf_minidb.profile import (
-    Profile,
-    Profiles,
-)
+from urllib.parse import urlencode
+
+
+SEARCH_LIMIT=100000
+SEARCH_FIELD="uuid"
+SUBSAMPLING_RANDOM_SEED=17
 
 
 logger = logging.getLogger(__name__)
 
+# search_query example:
+# "search/?type=Experiment&assay_title=Mint-ChIP-seq&limit=10&field=accession&format=json"
+SEARCH_LIMIT=500000
+SEARCH_FIELD="uuid"
+SUBSAMPLING_RANDOM_SEED=17
 
-class SubsamplingStrat:
-    def __init__(self, profiles, subsampling_strat_def_json_file):
-        """
-        Args:
-            profiles:
-                Dict of {profile_name: `Profile` object}
-            subsampling_strat_def_json_file:
-                strat JSON file
-        """
-        self.profiles = profiles.profiles
 
-        with open(subsampling_strat_def_json_file) as fp:
-            self.strat = json.load(fp)
+class Subsampling:
+    def __init__(
+        self,
+        profile_name,
+        search_parameters,
+        subsampling_rate=0.0,
+        subsampling_min=1
+    ):
+        self.profile_name = profile_name
+
+        if search_parameters:
+            self.query_params = search_parameters
+        else:
+            self.query_params = {}
+
+        self.query_params.update({
+            "format": "json",
+            "frame": "object",
+            "type": profile_name,
+            "limit": SEARCH_LIMIT,
+            "field": SEARCH_FIELD,
+        })
+
+        self.subsampling_rate = subsampling_rate if subsampling_rate else 0.0
+        self.subsampling_min = subsampling_min if subsampling_min else 0
 
     def subsample(self):
         """
-        Subsample based on Mini DB definition JSON
-        This JSON file defines how to subsample each profile        
+        Returns a list of subsampled UUIDs
         """
-        for profile_name, strat in self.strat.items():
+        logger.info(f"Subsampling for {self.query_params}")
+        all_uuids = self._get_all_uuids()
 
-            profile = self.profiles[profile_name]
+        if not all_uuids:
+            return []
 
-            if "required" in strat:
-                required = strat["required"]
+        num_subsampled = max(
+            math.floor(self.subsampling_rate*len(all_uuids)),
+            self.subsampling_min
+        )
 
-                identifying_vals = []
-                if "accession" in required:
-                    identifying_vals += required["accession"]
-                if "uuid" in required:
-                    identifying_vals += required["uuid"]
+        if num_subsampled:
+            random.seed(SUBSAMPLING_RANDOM_SEED)
+            subsampled = random.choices(all_uuids, k=num_subsampled)
+            logger.info(f"\t{subsampled}")
 
-                for identifying_val in identifying_vals:
-                    meta_obj = get(f"{profile.name}/{identifying_val}")
-                    profile.add_meta_obj(meta_obj)
+            return subsampled
+
+    def _get_all_uuids(self):
+        """
+        Get all UUIDs matching given search condition.
+        """
+        url_query = "search/?" + urlencode(self.query_params)
+
+        all_uuids = []
+
+        try:
+            for item in get(url_query)["@graph"]:
+                all_uuids.append(item["uuid"])
+
+        except requests.exceptions.HTTPError as err:
+            if err.response.status_code == 404:
+                logger.info(f"!!!! No UUIDs for profile {self.profile_name}")
+            else:
+                raise
+
+        return all_uuids

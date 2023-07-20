@@ -35,19 +35,26 @@ import logging
 
 from collections import defaultdict
 from igvf_minidb.connection import get
+from igvf_minidb.subsampling import Subsampling
 
 
 logger = logging.getLogger(__name__)
 
 
 class Profile:
-    def __init__(self, name, schema_json):
+    """Log per every `META_OBJS_PER_LOG` meta objs.
+    """
+    META_OBJS_PER_LOG = 100
+
+    def __init__(self, name, profile_json, subsampling_json):
         """
         Args:
             name:
                 Name of a profile in CamelCase (e.g. MouseDonor)
-            schema_json:
-                Schema JSON
+            profile_json:
+                Profile schema JSON
+            subsampling_json:
+                List of subsampling definition JSONs
 
         Properties:
             linked profiles:
@@ -55,24 +62,43 @@ class Profile:
             meta_objs:
                 dict of {uuid: metadata object}
         """
+        logger.info(f"Creating Profile for {name}")
         self.name = name
-        self.schema_json = schema_json
+        self.profile_json = profile_json
         self.linked_profiles = {}
         self.meta_objs = {}
+        self._init_subsampling(subsampling_json)
 
     def link_profile(self, property_name, profile):
         self.linked_profiles[property_name] = profile
 
-    def add_meta_obj(self, meta_obj):
+    def subsample(self):
+        logger.info(f"Start subsampling for profile {self.name}")
+        result = []
+        for subsampling in self.subsamplings:
+            for uuid in subsampling.subsample():
+                self.add_meta_obj_uuid(uuid)
+
+    def add_meta_obj_uuid(self, uuid, depth=0):
+        url_query = f"{self.name}/{uuid}"
+        meta_obj = get(url_query + "?format=json&frame=object")
+        self.add_meta_obj(meta_obj, depth=depth)
+
+    def add_meta_obj(self, meta_obj, depth=0):
         """
         Add metadata object to self and then recursively add metadata object for
         linked profiles too.
         """
         if meta_obj["uuid"] in self.meta_objs:
-            logger.info("Found cyclic loop. halting DFS...")
             return
 
         self.meta_objs[meta_obj["uuid"]] = meta_obj
+
+        if depth > 300:
+            logger.info(f"Possible deadlock? {depth}: {self.name}, {meta_obj['uuid']}")
+
+        if len(self.meta_objs) % Profile.META_OBJS_PER_LOG == 0:
+            logger.info(f"{len(self.meta_objs)} meta objs added to Profile {self.name} so far")
 
         for prop, linked_profile in self.linked_profiles.items():
             if prop not in meta_obj:
@@ -80,12 +106,13 @@ class Profile:
 
             if isinstance(meta_obj[prop], str):
                 url_query = meta_obj[prop]
-                linked_profile.add_meta_obj(get(url_query))
+                # logger.info(f"S-Adding {url_query} to Profile {self.name}")
+                linked_profile.add_meta_obj(get(url_query + "?format=json&frame=object"), depth=depth + 1)
 
             elif isinstance(meta_obj[prop], list):
                 for url_query in meta_obj[prop]:
-                    linked_profile.add_meta_obj(get(url_query))
-
+                    # logger.info(f"L-Adding {url_query} to Profile {self.name}")
+                    linked_profile.add_meta_obj(get(url_query + "?format=json&frame=object"), depth=depth + 1)
 
     def find_linked_profiles(self):
         """
@@ -98,7 +125,7 @@ class Profile:
             Profile's name in schema JSON is in CamelCase.
             It's converted to snake_case when being returned.
         """
-        for prop_name, prop in self.schema_json["properties"].items():
+        for prop_name, prop in self.profile_json["properties"].items():
 
             linkTo = None
             if prop["type"] == "string":
@@ -111,15 +138,6 @@ class Profile:
                     linkTo = prop["items"]["linkTo"]
                     logger.info(f"Found profile linkTo (array): {self.name} to {linkTo}")
 
-            # to check orphaned meta obj later
-            # elif prop["type"] == "array" and prop["items"]["type"] == ["string", "object"]:
-            #     if "linkFrom" in prop["items"]:
-            #         linkFrom = to_upper_camel_case(
-            #             prop["items"]["linkFrom"].split["."][0]
-            #         )
-            #         logger.info(f"Found profile linkFrom (array): {self.name} from {linkFrom}")
-            #         yield prop_name, linkFrom, "from"
-
             if linkTo:
                 if isinstance(linkTo, str):
                     yield prop_name, linkTo
@@ -129,31 +147,43 @@ class Profile:
                 else:
                     raise ValueError("linkTo should be either string of list of string.")
 
+    def _init_subsampling(self, subsampling_json):
+        self.subsamplings = []
+
+        if not subsampling_json:
+            return
+
+        for subsampling in subsampling_json:
+            self.subsamplings.append(
+                Subsampling(
+                    profile_name=self.name,
+                    search_parameters=subsampling.get("search_parameters"),
+                    subsampling_rate=subsampling.get("subsampling_rate"),
+                    subsampling_min=subsampling.get("subsampling_min"),
+                )
+            )
+
 
 class Profiles:
-    def __init__(self, profiles):
+    def __init__(self, profiles_json, all_subsampling_json):
         """
         Args:
             profiles:
                 Dict of {profile name: Profile object}.
         """
-        self.profiles = profiles
+        self.profiles = {}
+        self.all_subsampling_json = all_subsampling_json
 
-    @classmethod
-    def load_from_profiles_json_file(cls, profiles_json_file):
-        with open(profiles_json_file) as fp:
-            profile_schemas = json.load(fp)
-
-        profiles = {}
-        for profile_name, schema in profile_schemas.items():
+        for profile_name, schema in profiles_json.items():
             if profile_name.startswith(("_", "@")):
                 continue
-            profiles[profile_name] = Profile(profile_name, schema)
-
-        return Profiles(profiles)
+            self.profiles[profile_name] = Profile(
+                name=profile_name,
+                profile_json=schema,
+                subsampling_json=self.all_subsampling_json.get(profile_name)
+            )
 
     def link_all_profiles(self):
-
         # check if there are missing profiles (e.g. Dataset)
         profiles_added_on_demand = []
 
@@ -164,8 +194,12 @@ class Profiles:
                 if linked_profile_name not in self.profiles:
                     # some profiles are missing in all_profiles.json file
                     # send query to portal on demand
-                    url_query = f"profiles/{linked_profile_name}"
-                    profile = Profile(linked_profile_name, get(url_query))
+                    url_query = f"profiles/{linked_profile_name}/?format=json&frame=object"
+                    profile = Profile(
+                        name=linked_profile_name,
+                        profile_json=get(url_query),
+                        subsampling_json=self.all_subsampling_json.get(linked_profile_name)
+                    )
                     profiles_added_on_demand.append(profile)
 
         # add missing profiles
@@ -178,13 +212,26 @@ class Profiles:
                 linked_profile = self.profiles[linked_profile_name]
                 profile.link_profile(prop_name, linked_profile)
 
-    def print_tree(self, hideEmptyProfile=False):       
-        # for profile_name, profile in self.profiles.items():
+    def subsample_all(self):
+        for name, profile in self.profiles.items():
+            profile.subsample()
+
+    def print_tree(self):
+        empty_profiles = {}
+
+        print("** Profiles with metadata objects **")
         for profile_name, profile in sorted(
             self.profiles.items(), key=lambda item: len(item[1].meta_objs)
         ):
-            if hideEmptyProfile and len(profile.meta_objs) == 0:
+            if len(profile.meta_objs) == 0:
+                empty_profiles[profile_name] = profile
                 continue
+
             print(profile_name, len(profile.meta_objs))
             for prop, linked_profile in profile.linked_profiles.items():
                 print("\t", prop, linked_profile.name)
+        print("")
+
+        print("** Profiles without metadata objects **")
+        for profile_name, profile in empty_profiles.items():
+            print(profile_name)

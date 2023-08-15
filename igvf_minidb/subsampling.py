@@ -7,16 +7,11 @@ from igvf_minidb.connection import get
 from urllib.parse import urlencode
 
 
-SEARCH_LIMIT=100000
-SEARCH_FIELD="uuid"
-SUBSAMPLING_RANDOM_SEED=17
-
-
 logger = logging.getLogger(__name__)
 
 # search_query example:
 # "search/?type=Experiment&assay_title=Mint-ChIP-seq&limit=10&field=accession&format=json"
-SEARCH_LIMIT=500000
+SEARCH_LIMIT="all"
 SEARCH_FIELD="uuid"
 SUBSAMPLING_RANDOM_SEED=17
 

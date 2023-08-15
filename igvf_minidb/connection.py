@@ -26,7 +26,7 @@ get_call_count = 0
 get_call_cached_count = 0
 
 # constants
-CALLS_PER_LOG = 200
+CALLS_PER_LOG = 1000
 
 
 def set_endpoint(e):
@@ -62,10 +62,13 @@ def get(url_query, write_cache=True):
     url = f"{endpoint}/{url_query}"
 
     cached = get_redis_val(url)
+    # due to limit=all fix
+    cached2 = get_redis_val(url.replace("limit=500000","limit=all")) if not cached else None
 
     get_call_count = get_call_count + 1
-    if cached:
+    if cached or cached2:
         get_call_cached_count = get_call_cached_count + 1
+
     if get_call_count % CALLS_PER_LOG == 0:
         logger.info(
             f"numCalls. total:{get_call_count}, "
@@ -75,6 +78,8 @@ def get(url_query, write_cache=True):
 
     if cached:
         return json.loads(cached)
+    elif cached2:
+        return json.loads(cached2)
 
     auth = (username, password) if username and password else None
 

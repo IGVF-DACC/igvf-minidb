@@ -63,5 +63,10 @@ def main():
     profiles.subsample_all()
     profiles.print_tree()
 
+    output_json = json.dumps(profiles.get_all_uuids_json(),indent=4)
+
+    with open(args.conf_file + ".out", "w") as fp:
+        fp.write(output_json)
+
 if __name__ == "__main__":
     main()

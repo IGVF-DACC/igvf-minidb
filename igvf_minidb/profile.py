@@ -213,7 +213,7 @@ class Profiles:
                 profile.link_profile(prop_name, linked_profile)
 
     def subsample_all(self):
-        for name, profile in self.profiles.items():
+        for name, profile in sorted(self.profiles.items()):
             profile.subsample()
 
     def print_tree(self):
@@ -235,3 +235,14 @@ class Profiles:
         print("** Profiles without metadata objects **")
         for profile_name, profile in empty_profiles.items():
             print(profile_name)
+
+    def get_all_uuids_json(self):
+        result = {}
+
+        for profile_name, profile in self.profiles.items():
+            if profile.meta_objs:
+                result[profile_name] = list(profile.meta_objs.keys())
+            else:
+                result[profile_name] = []
+
+        return result

@@ -9,7 +9,7 @@ sudo apt-get install redis
 
 Make sure that Redis server is running. Get `ACCESS_KEY` and `ACCESS_KEY_SECRET` pair from portal's Profile menu.
 ```bash
-bin/minidb bin/minidb CONF_JSON_FILE -k ACCESS_KEY -s ACCESS_KEY_SECRET 
+bin/minidb CONF_JSON_FILE -k ACCESS_KEY -s ACCESS_KEY_SECRET 
 ```
 
 
@@ -19,6 +19,7 @@ Three items should be defined:
 - `"endpoint"`: Endpoint
 - `"profiles_query"`: URL query to get all profiles.
 - `"subsampling"`: Subsampling strategies
+
 
 
 Example:

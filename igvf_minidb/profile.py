@@ -232,11 +232,11 @@ class Profiles:
         print(f"Number of all profiles: {len(self.profiles)}")
         print("")
 
-        print("** All profiles, number of metadata **")
+        print("** All profiles **")
         for profile_name, profile in sorted(
-            self.profiles.items(), key=lambda item: len(item[1].meta_objs)
+            self.profiles.items(), key=lambda item: item[0].lower()
         ):
-            print(f"{profile_name}\t{len(profile.meta_objs)}")
+            print(profile_name)
         print("")
 
         print("** Profiles with metadata objects **")

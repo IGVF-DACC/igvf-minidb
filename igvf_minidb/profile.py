@@ -79,12 +79,12 @@ class Profile:
             for uuid in subsampling.subsample():
                 self.add_meta_obj_uuid(uuid)
 
-    def add_meta_obj_uuid(self, uuid, depth=0):
+    def add_meta_obj_uuid(self, uuid, depth=0, parent_uuids=[]):
         url_query = f"{self.name}/{uuid}"
         meta_obj = get(url_query + "?format=json&frame=object")
-        self.add_meta_obj(meta_obj, depth=depth)
+        self.add_meta_obj(meta_obj, depth=depth, parent_uuids)
 
-    def add_meta_obj(self, meta_obj, depth=0):
+    def add_meta_obj(self, meta_obj, depth=0, parent_uuids=[]):
         """
         Add metadata object to self and then recursively add metadata object for
         linked profiles too.
@@ -92,10 +92,16 @@ class Profile:
         if meta_obj["uuid"] in self.meta_objs:
             return
 
+        if meta_obj["uuid"] in parent_uuids:
+            logger.info(f"Cyclic reference found. Skipping... {depth}: {self.name}, {meta_obj['uuid']}")
+            return
+
+        parent_uuids.append(meta_obj["uuid"])
+
         self.meta_objs[meta_obj["uuid"]] = meta_obj
 
         if depth > 300:
-            logger.info(f"Possible deadlock? {depth}: {self.name}, {meta_obj['uuid']}")
+            logger.info(f"Search tree is too deep. {depth}: {self.name}, {meta_obj['uuid']}")
 
         if len(self.meta_objs) % Profile.META_OBJS_PER_LOG == 0:
             logger.info(f"{len(self.meta_objs)} meta objs added to Profile {self.name} so far")
@@ -107,12 +113,12 @@ class Profile:
             if isinstance(meta_obj[prop], str):
                 url_query = meta_obj[prop]
                 # logger.info(f"S-Adding {url_query} to Profile {self.name}")
-                linked_profile.add_meta_obj(get(url_query + "?format=json&frame=object"), depth=depth + 1)
+                linked_profile.add_meta_obj(get(url_query + "?format=json&frame=object"), depth=depth + 1, parent_uuids=parent_uuids)
 
             elif isinstance(meta_obj[prop], list):
                 for url_query in meta_obj[prop]:
                     # logger.info(f"L-Adding {url_query} to Profile {self.name}")
-                    linked_profile.add_meta_obj(get(url_query + "?format=json&frame=object"), depth=depth + 1)
+                    linked_profile.add_meta_obj(get(url_query + "?format=json&frame=object"), depth=depth + 1, parent_uuids=parent_uuids)
 
     def find_linked_profiles(self):
         """

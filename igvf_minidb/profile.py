@@ -82,7 +82,7 @@ class Profile:
     def add_meta_obj_uuid(self, uuid, depth=0, parent_uuids=[]):
         url_query = f"{self.name}/{uuid}"
         meta_obj = get(url_query + "?format=json&frame=object")
-        self.add_meta_obj(meta_obj, depth=depth, parent_uuids)
+        self.add_meta_obj(meta_obj, depth=depth, parent_uuids=parent_uuids)
 
     def add_meta_obj(self, meta_obj, depth=0, parent_uuids=[]):
         """

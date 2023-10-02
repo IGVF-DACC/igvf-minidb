@@ -88,6 +88,8 @@ class Profile:
         """
         Add metadata object to self and then recursively add metadata object for
         linked profiles too.
+
+        parent_uuids is used to track and avoid cyclic references.
         """
         if meta_obj["uuid"] in self.meta_objs:
             return

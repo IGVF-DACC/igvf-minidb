@@ -79,12 +79,12 @@ class Profile:
             for uuid in subsampling.subsample():
                 self.add_meta_obj_uuid(uuid)
 
-    def add_meta_obj_uuid(self, uuid, depth=0, parent_uuids=[]):
+    def add_meta_obj_uuid(self, uuid, depth=0, parent_uuids=()):
         url_query = f"{self.name}/{uuid}"
         meta_obj = get(url_query + "?format=json&frame=object")
         self.add_meta_obj(meta_obj, depth=depth, parent_uuids=parent_uuids)
 
-    def add_meta_obj(self, meta_obj, depth=0, parent_uuids=[]):
+    def add_meta_obj(self, meta_obj, depth=0, parent_uuids=()):
         """
         Add metadata object to self and then recursively add metadata object for
         linked profiles too.
@@ -95,10 +95,10 @@ class Profile:
             return
 
         if meta_obj["uuid"] in parent_uuids:
-            logger.info(f"Cyclic reference found. Skipping... {depth}: {self.name}, {meta_obj['uuid']}")
+            logger.info(f"Cyclic ref found. {depth}: {self.name}, {meta_obj['uuid']}")
             return
 
-        parent_uuids.append(meta_obj["uuid"])
+        parent_uuids += (meta_obj["uuid"],)
 
         self.meta_objs[meta_obj["uuid"]] = meta_obj
 

@@ -91,16 +91,17 @@ class Profile:
 
         parent_uuids is used to track and avoid cyclic references.
         """
-        if meta_obj["uuid"] in self.meta_objs:
+        uuid = meta_obj["uuid"]
+        if uuid in self.meta_objs:
             return
 
-        if meta_obj["uuid"] in parent_uuids:
+        if uuid in parent_uuids:
             logger.info(f"Cyclic ref found. {depth}: {self.name}, {meta_obj['uuid']}")
             return
 
-        parent_uuids += (meta_obj["uuid"],)
+        parent_uuids += (uuid,)
 
-        self.meta_objs[meta_obj["uuid"]] = meta_obj
+        self.meta_objs[uuid] = meta_obj
 
         if depth > 300:
             logger.info(f"Search tree is too deep. {depth}: {self.name}, {meta_obj['uuid']}")
@@ -226,6 +227,10 @@ class Profiles:
 
     def print_tree(self):
         empty_profiles = {}
+
+        print("** General info **")
+        print(f"Number of all profiles: {len(self.profiles)}")
+        print("")
 
         print("** Profiles with metadata objects **")
         for profile_name, profile in sorted(

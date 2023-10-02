@@ -1,0 +1,820 @@
+{
+  "endpoint": "https://www.encodeproject.org",
+  "profiles_query": "profiles/?format=json&frame=object",
+  "subsampling": {
+    "Experiment": [
+      {
+        "search_parameters": {
+          "assay_title": "TF ChIP-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "Histone ChIP-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "Control ChIP-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "DNase-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "total RNA-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "Mint-ChIP-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "polyA plus RNA-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "shRNA RNA-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "ATAC-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "scRNA-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "CRISPR RNA-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "microRNA-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "snATAC-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "Control eCLIP"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "RNA microarray"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "eCLIP"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "WGBS"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "DNAme array"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "RRBS"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "RNA Bind-n-Seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "small RNA-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "ChIA-PET"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "long read RNA-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "Control Mint-ChIP-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "RAMPAGE"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "genotyping array"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "intact Hi-C"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "CAGE"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "Repli-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "microRNA counts"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "siRNA RNA-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "in situ Hi-C"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "CRISPRi RNA-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "RIP-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "MRE-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "long read scRNA-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "Repli-chip"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "MeDIP-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "PAS-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "WGS"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "Bru-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "GM DNase-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "FAIRE-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "BruChase-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "RIP-chip"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "polyA minus RNA-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "RNA-PET"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "PRO-cap"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "PRO-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "BruUV-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "MS-MS"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "5C"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "TAB-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "dilution Hi-C"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "iCLIP"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "DNA-PET"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "icSHAPE"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "seqFISH"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "GRO-cap"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "SPRITE"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "5' RLM RACE"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "MNase-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "Switchgear"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "icLASER"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      },
+      {
+        "search_parameters": {
+          "assay_title": "Circulome-seq"
+        },
+        "subsampling_min": 1,
+        "subsampling_rate": 1e-05
+      }
+    ],
+    "AccessKey": {
+      "subsampling_min": 1
+    },
+    "AggregateSeries": {
+      "subsampling_min": 1
+    },
+    "Analysis": {
+      "subsampling_min": 1
+    },
+    "AnalysisStep": {
+      "subsampling_min": 1
+    },
+    "AnalysisStepRun": {
+      "subsampling_min": 1
+    },
+    "AnalysisStepVersion": {
+      "subsampling_min": 1
+    },
+    "Annotation": {
+      "subsampling_min": 1
+    },
+    "AntibodyCharacterization": {
+      "subsampling_min": 1
+    },
+    "AntibodyLot": {
+      "subsampling_min": 1
+    },
+    "AtacAlignmentEnrichmentQualityMetric": {
+      "subsampling_min": 1
+    },
+    "AtacAlignmentQualityMetric": {
+      "subsampling_min": 1
+    },
+    "AtacLibraryQualityMetric": {
+      "subsampling_min": 1
+    },
+    "AtacPeakEnrichmentQualityMetric": {
+      "subsampling_min": 1
+    },
+    "AtacReplicationQualityMetric": {
+      "subsampling_min": 1
+    },
+    "Award": {
+      "subsampling_min": 1
+    },
+    "Biosample": {
+      "subsampling_min": 1
+    },
+    "BiosampleCharacterization": {
+      "subsampling_min": 1
+    },
+    "BiosampleType": {
+      "subsampling_min": 1
+    },
+    "BismarkQualityMetric": {
+      "subsampling_min": 1
+    },
+    "BpnetQualityMetric": {
+      "subsampling_min": 1
+    },
+    "BruLibraryQualityMetric": {
+      "subsampling_min": 1
+    },
+    "Cart": {
+      "subsampling_min": 1
+    },
+    "ChiaPetAlignmentQualityMetric": {
+      "subsampling_min": 1
+    },
+    "ChiaPetChrInteractionsQualityMetric": {
+      "subsampling_min": 1
+    },
+    "ChiaPetPeakEnrichmentQualityMetric": {
+      "subsampling_min": 1
+    },
+    "ChipAlignmentEnrichmentQualityMetric": {
+      "subsampling_min": 1
+    },
+    "ChipAlignmentQualityMetric": {
+      "subsampling_min": 1
+    },
+    "ChipLibraryQualityMetric": {
+      "subsampling_min": 1
+    },
+    "ChipPeakEnrichmentQualityMetric": {
+      "subsampling_min": 1
+    },
+    "ChipReplicationQualityMetric": {
+      "subsampling_min": 1
+    },
+    "ChipSeqFilterQualityMetric": {
+      "subsampling_min": 1
+    },
+    "CollectionSeries": {
+      "subsampling_min": 1
+    },
+    "ComplexityXcorrQualityMetric": {
+      "subsampling_min": 1
+    },
+    "ComputationalModel": {
+      "subsampling_min": 1
+    },
+    "CorrelationQualityMetric": {
+      "subsampling_min": 1
+    },
+    "CpgCorrelationQualityMetric": {
+      "subsampling_min": 1
+    },
+    "DifferentialAccessibilitySeries": {
+      "subsampling_min": 1
+    },
+    "DifferentiationSeries": {
+      "subsampling_min": 1
+    },
+    "DiseaseSeries": {
+      "subsampling_min": 1
+    },
+    "DnaseAlignmentQualityMetric": {
+      "subsampling_min": 1
+    },
+    "DnaseFootprintingQualityMetric": {
+      "subsampling_min": 1
+    },
+    "Document": {
+      "subsampling_min": 1
+    },
+    "DonorCharacterization": {
+      "subsampling_min": 1
+    },
+    "DuplicatesQualityMetric": {
+      "subsampling_min": 1
+    },
+    "EdwbamstatsQualityMetric": {
+      "subsampling_min": 1
+    },
+    "ExperimentSeries": {
+      "subsampling_min": 1
+    },
+    "File": {
+      "subsampling_min": 1
+    },
+    "FilteringQualityMetric": {
+      "subsampling_min": 1
+    },
+    "FlyDonor": {
+      "subsampling_min": 1
+    },
+    "FunctionalCharacterizationExperiment": {
+      "subsampling_min": 1
+    },
+    "FunctionalCharacterizationSeries": {
+      "subsampling_min": 1
+    },
+    "GembsAlignmentQualityMetric": {
+      "subsampling_min": 1
+    },
+    "GencodeCategoryQualityMetric": {
+      "subsampling_min": 1
+    },
+    "Gene": {
+      "subsampling_min": 1
+    },
+    "GeneQuantificationQualityMetric": {
+      "subsampling_min": 1
+    },
+    "GenericQualityMetric": {
+      "subsampling_min": 1
+    },
+    "GeneSilencingSeries": {
+      "subsampling_min": 1
+    },
+    "GeneticModificationCharacterization": {
+      "subsampling_min": 1
+    },
+    "GeneticModification": {
+      "subsampling_min": 1
+    },
+    "GeneTypeQuantificationQualityMetric": {
+      "subsampling_min": 1
+    },
+    "HicQualityMetric": {
+      "subsampling_min": 1
+    },
+    "HistoneChipSeqQualityMetric": {
+      "subsampling_min": 1
+    },
+    "HotspotQualityMetric": {
+      "subsampling_min": 1
+    },
+    "HumanDonor": {
+      "subsampling_min": 1
+    },
+    "IDRQualityMetric": {
+      "subsampling_min": 1
+    },
+    "IdrSummaryQualityMetric": {
+      "subsampling_min": 1
+    },
+    "Image": {
+      "subsampling_min": 1
+    },
+    "Lab": {
+      "subsampling_min": 1
+    },
+    "Library": {
+      "subsampling_min": 1
+    },
+    "LongReadRnaMappingQualityMetric": {
+      "subsampling_min": 1
+    },
+    "LongReadRnaQuantificationQualityMetric": {
+      "subsampling_min": 1
+    },
+    "MadQualityMetric": {
+      "subsampling_min": 1
+    },
+    "ManateeDonor": {
+      "subsampling_min": 1
+    },
+    "MatchedSet": {
+      "subsampling_min": 1
+    },
+    "MicroRnaMappingQualityMetric": {
+      "subsampling_min": 1
+    },
+    "MicroRnaQuantificationQualityMetric": {
+      "subsampling_min": 1
+    },
+    "MouseDonor": {
+      "subsampling_min": 1
+    },
+    "MultiomicsSeries": {
+      "subsampling_min": 1
+    },
+    "OrganismDevelopmentSeries": {
+      "subsampling_min": 1
+    },
+    "Organism": {
+      "subsampling_min": 1
+    },
+    "Page": {
+      "subsampling_min": 1
+    },
+    "Pipeline": {
+      "subsampling_min": 1
+    },
+    "Platform": {
+      "subsampling_min": 1
+    },
+    "Project": {
+      "subsampling_min": 1
+    },
+    "PublicationData": {
+      "subsampling_min": 1
+    },
+    "Publication": {
+      "subsampling_min": 1
+    },
+    "PulseChaseTimeSeries": {
+      "subsampling_min": 1
+    },
+    "QualityStandard": {
+      "subsampling_min": 1
+    },
+    "ReferenceEpigenome": {
+      "subsampling_min": 1
+    },
+    "Reference": {
+      "subsampling_min": 1
+    },
+    "Replicate": {
+      "subsampling_min": 1
+    },
+    "ReplicationTimingSeries": {
+      "subsampling_min": 1
+    },
+    "RNAExpression": {
+      "subsampling_min": 1
+    },
+    "SamtoolsFlagstatsQualityMetric": {
+      "subsampling_min": 1
+    },
+    "SamtoolsStatsQualityMetric": {
+      "subsampling_min": 1
+    },
+    "ScAtacAlignmentQualityMetric": {
+      "subsampling_min": 1
+    },
+    "ScAtacAnalysisQualityMetric": {
+      "subsampling_min": 1
+    },
+    "ScAtacCountsSummaryQualityMetric": {
+      "subsampling_min": 1
+    },
+    "ScAtacLibraryComplexityQualityMetric": {
+      "subsampling_min": 1
+    },
+    "ScAtacMultipletQualityMetric": {
+      "subsampling_min": 1
+    },
+    "ScAtacReadQualityMetric": {
+      "subsampling_min": 1
+    },
+    "ScrnaSeqCountsSummaryQualityMetric": {
+      "subsampling_min": 1
+    },
+    "SegwayQualityMetric": {
+      "subsampling_min": 1
+    },
+    "SingleCellRnaSeries": {
+      "subsampling_min": 1
+    },
+    "SingleCellUnit": {
+      "subsampling_min": 1
+    },
+    "Software": {
+      "subsampling_min": 1
+    },
+    "SoftwareVersion": {
+      "subsampling_min": 1
+    },
+    "Source": {
+      "subsampling_min": 1
+    },
+    "StarQualityMetric": {
+      "subsampling_min": 1
+    },
+    "StarSoloQualityMetric": {
+      "subsampling_min": 1
+    },
+    "Target": {
+      "subsampling_min": 1
+    },
+    "TransgenicEnhancerExperiment": {
+      "subsampling_min": 1
+    },
+    "TreatmentConcentrationSeries": {
+      "subsampling_min": 1
+    },
+    "TreatmentTimeSeries": {
+      "subsampling_min": 1
+    },
+    "Treatment": {
+      "subsampling_min": 1
+    },
+    "TrimmingQualityMetric": {
+      "subsampling_min": 1
+    },
+    "UcscBrowserComposite": {
+      "subsampling_min": 1
+    },
+    "User": {
+      "subsampling_min": 1
+    },
+    "WormDonor": {
+      "subsampling_min": 1
+    }
+  }
+}

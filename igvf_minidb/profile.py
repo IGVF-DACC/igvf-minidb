@@ -264,7 +264,7 @@ class Profiles:
         return result
 
     def get_all_uuids_csv(self, sep=",", uniq=False):
-        header = sep.join(["profile_name", "uuid"])
+        header = sep.join(["profile_name", "rid"])
         rows = [header]
 
         uuids = set()

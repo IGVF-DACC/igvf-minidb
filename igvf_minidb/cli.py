@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import argparse
-import glob
 import json
 import logging
 
@@ -19,9 +18,8 @@ from igvf_minidb.profile import (
 logger = logging.getLogger(__name__)
 
 
-
 def main():
-    logging.basicConfig(level = logging.INFO)
+    logging.basicConfig(level=logging.INFO)
 
     parser = argparse.ArgumentParser(
         description="Mini DB generator"
@@ -68,11 +66,12 @@ def main():
     profiles.print_tree()
 
     with open(args.output_prefix + ".json", "w") as fp:
-        output_json = json.dumps(profiles.get_all_uuids_json(),indent=4)
+        output_json = json.dumps(profiles.get_all_uuids_json(), indent=4)
         fp.write(output_json)
 
     with open(args.output_prefix + ".csv", "w") as fp:
         fp.write(profiles.get_all_uuids_csv())
+
 
 if __name__ == "__main__":
     main()

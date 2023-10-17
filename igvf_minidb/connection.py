@@ -2,7 +2,6 @@
 """
 import json
 import logging
-import redis
 import requests
 
 from requests.adapters import (
@@ -63,7 +62,7 @@ def get(url_query, write_cache=True):
 
     cached = get_redis_val(url)
     # due to limit=all fix
-    cached2 = get_redis_val(url.replace("limit=500000","limit=all")) if not cached else None
+    cached2 = get_redis_val(url.replace("limit=500000", "limit=all")) if not cached else None
 
     get_call_count = get_call_count + 1
     if cached or cached2:

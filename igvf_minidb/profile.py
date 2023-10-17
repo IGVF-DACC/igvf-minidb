@@ -29,11 +29,8 @@ Dev notes:
             }
         },
 """
-import json
-import os
 import logging
 
-from collections import defaultdict
 from igvf_minidb.connection import get
 from igvf_minidb.subsampling import Subsampling
 
@@ -74,7 +71,6 @@ class Profile:
 
     def subsample(self):
         logger.info(f"Start subsampling for profile {self.name}")
-        result = []
         for subsampling in self.subsamplings:
             for uuid in subsampling.subsample():
                 self.add_meta_obj_uuid(uuid)

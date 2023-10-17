@@ -11,9 +11,9 @@ logger = logging.getLogger(__name__)
 
 # search_query example:
 # "search/?type=Experiment&assay_title=Mint-ChIP-seq&limit=10&field=accession&format=json"
-SEARCH_LIMIT="all"
-SEARCH_FIELD="uuid"
-SUBSAMPLING_RANDOM_SEED=17
+SEARCH_LIMIT = "all"
+SEARCH_FIELD = "uuid"
+SUBSAMPLING_RANDOM_SEED = 17
 
 
 class Subsampling:
@@ -53,7 +53,7 @@ class Subsampling:
             return []
 
         num_subsampled = max(
-            math.floor(self.subsampling_rate*len(all_uuids)),
+            math.floor(self.subsampling_rate * len(all_uuids)),
             self.subsampling_min
         )
 

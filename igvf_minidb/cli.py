@@ -38,6 +38,10 @@ def main():
         "-s", "--secret",
         help="Secret access key on the portal."
     )
+    parser.add_argument(
+        "-o", "--output-prefix",
+        help="File path prefix for outputs (JSON, CSV)."
+    )
 
     args = parser.parse_args()
 
@@ -63,10 +67,12 @@ def main():
     profiles.subsample_all()
     profiles.print_tree()
 
-    output_json = json.dumps(profiles.get_all_uuids_json(),indent=4)
-
-    with open(args.conf_file + ".out", "w") as fp:
+    with open(args.output_prefix + ".json", "w") as fp:
+        output_json = json.dumps(profiles.get_all_uuids_json(),indent=4)
         fp.write(output_json)
+
+    with open(args.output_prefix + ".csv", "w") as fp:
+        fp.write(profiles.get_all_uuids_csv())
 
 if __name__ == "__main__":
     main()

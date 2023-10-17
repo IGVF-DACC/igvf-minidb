@@ -266,3 +266,15 @@ class Profiles:
                 result[profile_name] = []
 
         return result
+
+    def get_all_uuids_csv(self, sep=","):
+        header = sep.join(["profile_name", "uuid"])
+        rows = [header]
+
+        for profile_name, profile in self.profiles.items():
+            if profile.meta_objs:
+                for uuid in profile.meta_objs.keys():
+                    row = sep.join([profile_name, uuid])
+                    rows.append(row)
+
+        return "\n".join(rows)

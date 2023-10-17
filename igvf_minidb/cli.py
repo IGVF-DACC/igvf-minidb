@@ -70,7 +70,10 @@ def main():
         fp.write(output_json)
 
     with open(args.output_prefix + ".csv", "w") as fp:
-        fp.write(profiles.get_all_uuids_csv())
+        fp.write(profiles.get_all_uuids_csv(uniq=False))
+
+    with open(args.output_prefix + ".uniq.csv", "w") as fp:
+        fp.write(profiles.get_all_uuids_csv(uniq=True))
 
 
 if __name__ == "__main__":
